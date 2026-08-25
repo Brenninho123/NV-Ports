@@ -6,14 +6,15 @@
     <title>NightmareVision Ports</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #08070c;
-            --card-bg: rgba(18, 16, 26, 0.75);
+            --bg-color: #050409;
+            --card-bg: rgba(15, 12, 24, 0.7);
             --accent-glow: #8a2be2;
             --accent-cyan: #00f0ff;
-            --text-main: #e2e8f0;
+            --accent-magenta: #ff007f;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
         }
 
@@ -21,13 +22,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
 
         body {
             background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 50% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
             color: var(--text-main);
             font-family: 'Rajdhani', sans-serif;
             min-height: 100vh;
@@ -39,6 +38,50 @@
             overflow: hidden;
         }
 
+        .bg-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(to right, rgba(138, 43, 226, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px);
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(40px); }
+        }
+
+        .bg-glow-1 {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(50px);
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            bottom: 10%;
+            right: 15%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(40px);
+        }
+
         .flash-overlay {
             position: fixed;
             top: 0;
@@ -48,120 +91,280 @@
             background-color: #ffffff;
             opacity: 0;
             pointer-events: none;
-            z-index: 9999;
-            transition: opacity 0.15s ease-out;
+            z-index: 10000;
+            transition: opacity 0.08s ease-out;
         }
 
         .flash-overlay.active {
             opacity: 1;
         }
 
-        .container {
-            width: 100%;
-            max-width: 520px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 40px 30px;
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 4, 9, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .intro-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .intro-content {
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .logo-container {
-            margin-bottom: 12px;
+        .intro-overlay.active .intro-content {
+            transform: scale(1);
         }
 
-        .logo-title {
-            max-width: 100%;
+        .intro-logo {
+            max-width: 280px;
             height: auto;
-            max-height: 120px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.6));
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+            animation: introPulse 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes introPulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.6)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(0, 240, 255, 0.9)); }
+        }
+
+        .intro-status {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+        }
+
+        .intro-bar {
+            width: 240px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 16px auto 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .intro-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-glow), var(--accent-cyan));
+            box-shadow: 0 0 10px var(--accent-cyan);
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 540px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 44px 32px;
+            text-align: center;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .container:hover {
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .badge-container {
+            margin-bottom: 20px;
         }
 
         .badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--accent-cyan);
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 4px 12px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 6px 16px;
             border-radius: 20px;
-            margin-bottom: 16px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .logo-title {
+            max-width: 100%;
+            height: auto;
+            max-height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.65));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-title:hover {
+            transform: scale(1.02);
         }
 
         .description {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 32px;
-            line-height: 1.4;
+            margin-bottom: 36px;
+            line-height: 1.5;
+            font-weight: 500;
         }
 
         .download-card {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
             padding: 24px;
+            position: relative;
+            overflow: hidden;
         }
 
         .download-btn {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
             background: linear-gradient(135deg, var(--accent-glow), #4a00e0);
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
             text-decoration: none;
             text-transform: uppercase;
-            padding: 16px 24px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.35);
+            padding: 18px 24px;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4);
             cursor: pointer;
+            overflow: hidden;
+            border: none;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(138, 43, 226, 0.55);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(138, 43, 226, 0.65);
             background: linear-gradient(135deg, #9d3bff, #5900ff);
         }
 
+        .download-btn:active {
+            transform: translateY(-1px);
+        }
+
         .download-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         .meta-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 16px;
-            font-size: 0.85rem;
+            margin-top: 18px;
+            font-size: 0.9rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
         .version {
             color: var(--accent-cyan);
             font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(0, 240, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
     <div class="flash-overlay" id="flashOverlay"></div>
 
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-content">
+            <img src="ui/NightmareVision.png" alt="NightmareVision Logo" class="intro-logo">
+            <div class="intro-status">Launching Port...</div>
+            <div class="intro-bar">
+                <div class="intro-bar-fill" id="introBarFill"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <span class="badge">Official Hub</span>
+        <div class="badge-container">
+            <span class="badge">
+                <span class="badge-dot"></span>
+                Official Hub
+            </span>
+        </div>
         
         <div class="logo-container">
             <img src="ui/NightmareVision.png" alt="NightmareVision Ports" class="logo-title">
@@ -190,6 +393,8 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const confirmSound = document.getElementById('confirmSound');
         const flashOverlay = document.getElementById('flashOverlay');
+        const introOverlay = document.getElementById('introOverlay');
+        const introBarFill = document.getElementById('introBarFill');
 
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -201,11 +406,22 @@
             flashOverlay.classList.add('active');
 
             setTimeout(() => {
-                window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                flashOverlay.classList.remove('active');
+                introOverlay.classList.add('active');
+                
                 setTimeout(() => {
-                    flashOverlay.classList.remove('active');
-                }, 200);
-            }, 150);
+                    introBarFill.style.width = '100%';
+                }, 50);
+
+                setTimeout(() => {
+                    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                    
+                    setTimeout(() => {
+                        introOverlay.classList.remove('active');
+                        introBarFill.style.width = '0%';
+                    }, 400);
+                }, 1300);
+            }, 100);
         });
     </script>
 
