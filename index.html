@@ -10,10 +10,10 @@
     <style>
         :root {
             --bg-color: #050409;
-            --card-bg: rgba(15, 12, 24, 0.7);
+            --card-bg: rgba(15, 12, 24, 0.75);
             --accent-glow: #8a2be2;
             --accent-cyan: #00f0ff;
-            --accent-magenta: #ff007f;
+            --accent-red: #ff0055;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
         }
@@ -62,8 +62,8 @@
             top: 15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
@@ -74,8 +74,8 @@
             position: absolute;
             bottom: 10%;
             right: 15%;
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
@@ -182,20 +182,68 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 44px 32px;
+            padding: 32px;
             text-align: center;
             box-shadow: 
                 0 30px 60px rgba(0, 0, 0, 0.8),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .container:hover {
-            border-color: rgba(138, 43, 226, 0.3);
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn {
+            flex: 1;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 10px 16px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: rgba(138, 43, 226, 0.2);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .badge-container {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .badge {
@@ -230,13 +278,12 @@
 
         .logo-container {
             margin-bottom: 20px;
-            position: relative;
         }
 
         .logo-title {
             max-width: 100%;
             height: auto;
-            max-height: 130px;
+            max-height: 120px;
             object-fit: contain;
             filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.65));
             transition: transform 0.3s ease;
@@ -249,7 +296,7 @@
         .description {
             font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 36px;
+            margin-bottom: 32px;
             line-height: 1.5;
             font-weight: 500;
         }
@@ -259,8 +306,6 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
             padding: 24px;
-            position: relative;
-            overflow: hidden;
         }
 
         .download-btn {
@@ -308,15 +353,10 @@
             background: linear-gradient(135deg, #9d3bff, #5900ff);
         }
 
-        .download-btn:active {
-            transform: translateY(-1px);
-        }
-
         .download-btn svg {
             width: 22px;
             height: 22px;
             fill: currentColor;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         .meta-info {
@@ -337,6 +377,63 @@
             padding: 2px 8px;
             border-radius: 4px;
             border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .credit-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .creator-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .creator-role {
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .yt-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #ff0000, #b30000);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.35);
+        }
+
+        .yt-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.6);
+            background: linear-gradient(135deg, #ff1a1a, #cc0000);
+        }
+
+        .yt-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
     </style>
 </head>
@@ -359,30 +456,51 @@
     </div>
 
     <div class="container">
-        <div class="badge-container">
-            <span class="badge">
-                <span class="badge-dot"></span>
-                Official Hub
-            </span>
-        </div>
-        
-        <div class="logo-container">
-            <img src="ui/NightmareVision.png" alt="NightmareVision Ports" class="logo-title">
-        </div>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('main')">Main</button>
+            <button class="tab-btn" onclick="switchTab('credits')">Credits</button>
+        </nav>
 
-        <p class="description">Central repository for custom engine ports, builds, and scripts.</p>
-
-        <div class="download-card">
-            <a href="https://github.com/Brenninho123/NV-Ports/releases/tag/v0.0.1" target="_blank" rel="noopener noreferrer" class="download-btn" id="downloadBtn">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 16l4-5h-3V4h-2v7H8l4 5zm9 2H3v2h18v-2z"/>
-                </svg>
-                Download NV-Ports
-            </a>
+        <div id="main-tab" class="tab-content active">
+            <div class="badge-container">
+                <span class="badge">
+                    <span class="badge-dot"></span>
+                    Official Hub
+                </span>
+            </div>
             
-            <div class="meta-info">
-                <span>Latest Release</span>
-                <span class="version">v0.0.1</span>
+            <div class="logo-container">
+                <img src="ui/NightmareVision.png" alt="NightmareVision Ports" class="logo-title">
+            </div>
+
+            <p class="description">Central repository for custom engine ports, builds, and scripts.</p>
+
+            <div class="download-card">
+                <a href="https://github.com/Brenninho123/NV-Ports/releases/tag/v0.0.1" target="_blank" rel="noopener noreferrer" class="download-btn" id="downloadBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 16l4-5h-3V4h-2v7H8l4 5zm9 2H3v2h18v-2z"/>
+                    </svg>
+                    Download NV-Ports
+                </a>
+                
+                <div class="meta-info">
+                    <span>Latest Release</span>
+                    <span class="version">v0.0.1</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="credits-tab" class="tab-content">
+            <div class="credit-card">
+                <h2 class="creator-title">Brenninho840</h2>
+                <p class="creator-role">Lead Developer & Modder</p>
+                
+                <a href="https://youtube/@rbrenninho8840?si=8hnoeHRS7LoGcduv" target="_blank" rel="noopener noreferrer" class="yt-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    YouTube Channel
+                </a>
             </div>
         </div>
     </div>
@@ -395,6 +513,22 @@
         const flashOverlay = document.getElementById('flashOverlay');
         const introOverlay = document.getElementById('introOverlay');
         const introBarFill = document.getElementById('introBarFill');
+
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            if (tabName === 'main') {
+                tabs[0].classList.add('active');
+                document.getElementById('main-tab').classList.add('active');
+            } else if (tabName === 'credits') {
+                tabs[1].classList.add('active');
+                document.getElementById('credits-tab').classList.add('active');
+            }
+        }
 
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
