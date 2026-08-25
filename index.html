@@ -35,6 +35,25 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.15s ease-out;
+        }
+
+        .flash-overlay.active {
+            opacity: 1;
         }
 
         .container {
@@ -107,6 +126,7 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(138, 43, 226, 0.35);
+            cursor: pointer;
         }
 
         .download-btn:hover {
@@ -138,6 +158,8 @@
 </head>
 <body>
 
+    <div class="flash-overlay" id="flashOverlay"></div>
+
     <div class="container">
         <span class="badge">Official Hub</span>
         
@@ -148,7 +170,7 @@
         <p class="description">Central repository for custom engine ports, builds, and scripts.</p>
 
         <div class="download-card">
-            <a href="https://github.com/Brenninho123/NV-Ports/releases/tag/v0.0.1" target="_blank" rel="noopener noreferrer" class="download-btn">
+            <a href="https://github.com/Brenninho123/NV-Ports/releases/tag/v0.0.1" target="_blank" rel="noopener noreferrer" class="download-btn" id="downloadBtn">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 16l4-5h-3V4h-2v7H8l4 5zm9 2H3v2h18v-2z"/>
                 </svg>
@@ -161,6 +183,31 @@
             </div>
         </div>
     </div>
+
+    <audio id="confirmSound" src="ui/sounds/confirmMenu.ogg" preload="auto"></audio>
+
+    <script>
+        const downloadBtn = document.getElementById('downloadBtn');
+        const confirmSound = document.getElementById('confirmSound');
+        const flashOverlay = document.getElementById('flashOverlay');
+
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetUrl = downloadBtn.getAttribute('href');
+
+            confirmSound.currentTime = 0;
+            confirmSound.play().catch(() => {});
+
+            flashOverlay.classList.add('active');
+
+            setTimeout(() => {
+                window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                setTimeout(() => {
+                    flashOverlay.classList.remove('active');
+                }, 200);
+            }, 150);
+        });
+    </script>
 
 </body>
 </html>
