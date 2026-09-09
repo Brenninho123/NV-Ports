@@ -9,13 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050409;
-            --card-bg: rgba(15, 12, 24, 0.75);
+            --bg-color: #040307;
+            --card-bg: rgba(13, 10, 22, 0.85);
             --accent-glow: #8a2be2;
             --accent-cyan: #00f0ff;
             --accent-red: #ff0055;
+            --accent-green: #00ff88;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -35,7 +37,7 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .bg-grid {
@@ -59,27 +61,27 @@
 
         .bg-glow-1 {
             position: absolute;
-            top: 15%;
+            top: 10%;
             left: 50%;
             transform: translateX(-50%);
-            width: 450px;
-            height: 450px;
+            width: 500px;
+            height: 500px;
             background: radial-gradient(circle, rgba(138, 43, 226, 0.25) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
-            filter: blur(50px);
+            filter: blur(60px);
         }
 
         .bg-glow-2 {
             position: absolute;
-            bottom: 10%;
-            right: 15%;
-            width: 350px;
-            height: 350px;
+            bottom: 5%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
-            filter: blur(40px);
+            filter: blur(50px);
         }
 
         .flash-overlay {
@@ -105,8 +107,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(5, 4, 9, 0.95);
-            backdrop-filter: blur(15px);
+            background: rgba(4, 3, 7, 0.96);
+            backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -177,50 +179,50 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 540px;
+            max-width: 580px;
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 32px;
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 36px 32px;
             text-align: center;
             box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.8),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                0 30px 70px rgba(0, 0, 0, 0.9),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
 
         .nav-tabs {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 28px;
-            background: rgba(0, 0, 0, 0.4);
+            gap: 8px;
+            margin-bottom: 32px;
+            background: rgba(0, 0, 0, 0.5);
             padding: 6px;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .tab-btn {
             flex: 1;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 10px 16px;
+            padding: 12px 10px;
             background: transparent;
             color: var(--text-muted);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .tab-btn.active {
-            background: rgba(138, 43, 226, 0.2);
+            background: rgba(138, 43, 226, 0.25);
             color: var(--accent-cyan);
-            border: 1px solid rgba(0, 240, 255, 0.3);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
         }
 
         .tab-btn:hover:not(.active) {
@@ -230,7 +232,7 @@
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .tab-content.active {
@@ -238,7 +240,7 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -304,7 +306,7 @@
         .download-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 24px;
         }
 
@@ -324,7 +326,7 @@
             text-decoration: none;
             text-transform: uppercase;
             padding: 18px 24px;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4);
             cursor: pointer;
@@ -379,17 +381,119 @@
             border: 1px solid rgba(0, 240, 255, 0.2);
         }
 
+        .report-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: left;
+        }
+
+        .report-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .report-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+            user-select: text;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(138, 43, 226, 0.4));
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.4), rgba(138, 43, 226, 0.6));
+            box-shadow: 0 6px 25px rgba(0, 240, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .success-msg {
+            display: none;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--accent-green);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 16px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         .credit-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 14px;
-            padding: 32px 24px;
+            border-radius: 16px;
+            padding: 36px 24px;
             text-align: center;
         }
 
         .creator-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #ffffff;
             margin-bottom: 8px;
@@ -399,7 +503,7 @@
         .creator-role {
             font-size: 1rem;
             color: var(--accent-cyan);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
@@ -419,7 +523,7 @@
             text-decoration: none;
             text-transform: uppercase;
             padding: 14px 28px;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(255, 0, 0, 0.35);
         }
@@ -458,6 +562,7 @@
     <div class="container">
         <nav class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab('main')">Main</button>
+            <button class="tab-btn" onclick="switchTab('report')">Report Bug</button>
             <button class="tab-btn" onclick="switchTab('credits')">Credits</button>
         </nav>
 
@@ -490,6 +595,34 @@
             </div>
         </div>
 
+        <div id="report-tab" class="tab-content">
+            <div class="report-card">
+                <h2 class="report-title">Bug Report</h2>
+                <p class="report-sub">Found an issue or glitch? Submit the details below.</p>
+
+                <form id="bugForm">
+                    <div class="form-group">
+                        <label class="form-label" for="bugTitle">Issue Title</label>
+                        <input type="text" id="bugTitle" class="form-input" placeholder="e.g., Crash on song load" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="bugPort">Port / Version</label>
+                        <input type="text" id="bugPort" class="form-input" placeholder="e.g., NV-Ports v0.0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="bugDesc">Bug Description</label>
+                        <textarea id="bugDesc" class="form-textarea" placeholder="Explain what happened and how to reproduce it..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Report</button>
+                </form>
+
+                <div class="success-msg" id="successMsg">Report Sent Successfully!</div>
+            </div>
+        </div>
+
         <div id="credits-tab" class="tab-content">
             <div class="credit-card">
                 <h2 class="creator-title">Brenninho840</h2>
@@ -513,6 +646,8 @@
         const flashOverlay = document.getElementById('flashOverlay');
         const introOverlay = document.getElementById('introOverlay');
         const introBarFill = document.getElementById('introBarFill');
+        const bugForm = document.getElementById('bugForm');
+        const successMsg = document.getElementById('successMsg');
 
         function switchTab(tabName) {
             const tabs = document.querySelectorAll('.tab-btn');
@@ -524,8 +659,11 @@
             if (tabName === 'main') {
                 tabs[0].classList.add('active');
                 document.getElementById('main-tab').classList.add('active');
-            } else if (tabName === 'credits') {
+            } else if (tabName === 'report') {
                 tabs[1].classList.add('active');
+                document.getElementById('report-tab').classList.add('active');
+            } else if (tabName === 'credits') {
+                tabs[2].classList.add('active');
                 document.getElementById('credits-tab').classList.add('active');
             }
         }
@@ -556,6 +694,22 @@
                     }, 400);
                 }, 1300);
             }, 100);
+        });
+
+        bugForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            confirmSound.currentTime = 0;
+            confirmSound.play().catch(() => {});
+
+            bugForm.style.display = 'none';
+            successMsg.style.display = 'block';
+
+            setTimeout(() => {
+                bugForm.reset();
+                bugForm.style.display = 'block';
+                successMsg.style.display = 'none';
+            }, 3000);
         });
     </script>
 
