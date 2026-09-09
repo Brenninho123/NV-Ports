@@ -1,0 +1,21 @@
+{
+  "short_name": "NV Ports",
+  "name": "NightmareVision Ports",
+  "icons": [
+    {
+      "src": "ui/NightmareVision.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "ui/NightmareVision.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#040307",
+  "theme_color": "#8a2be2",
+  "display": "standalone",
+  "orientation": "portrait"
+}
